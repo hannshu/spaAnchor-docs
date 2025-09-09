@@ -2,12 +2,12 @@
 
 # -- Project information
 
-project = 'Lumache'
-copyright = '2021, Graziella'
-author = 'Graziella'
+project = 'spaAnchor'
+copyright = '2025, Han Shu et al.'
+author = 'Han Shu'
 
-release = '0.1'
-version = '0.1.0'
+release = '1.0'
+version = 'latest'
 
 # -- General configuration
 
@@ -17,6 +17,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    'nbsphinx'
 ]
 
 intersphinx_mapping = {
@@ -33,3 +34,5 @@ html_theme = 'sphinx_rtd_theme'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+nbsphinx_execute = 'never'
