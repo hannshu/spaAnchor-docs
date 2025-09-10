@@ -7,7 +7,7 @@ significantly simplifies dependency resolution. (OPTIONAL)
 
 .. code-block:: bash
 
-   conda create -n spaanchor_env
+   conda create -n spaanchor_env python=3.XX # spaAnchor is compatible with Python versions 3.9-3.12
    conda activate spaanchor_env
 
 Download and install the spaAnchor source code
