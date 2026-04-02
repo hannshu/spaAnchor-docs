@@ -122,5 +122,75 @@ Such as using MLP for translation.
             return regressor.fit(source, target).predict(predict)
 
 
+Apart from overriding the regression, spaAnchor also allows users to 
+define the regression model for each target feature modality by specifying 
+the ``regressor_key`` parameter when initializing the spaAnchor model. 
 
+We also provide a set of regression models in ``spaAnchor.regressor``, including:
+
+- ``spaAnchor.regressor.ridge_regressor``: Ridge regression model (:class:`~sklearn.linear_model.Ridge` / :class:`~sklearn.linear_model.LogisticRegression` with penalty="l2" for classification).
+- ``spaAnchor.regressor.xgboost_regressor``: XGBoost regression model (:class:`~xgboost.XGBRegressor` / :class:`~xgboost.XGBClassifier` for classification).
+- ``spaAnchor.regressor.mlp_regressor``: MLP regression model (:class:`~sklearn.neural_network.MLPRegressor` / :class:`~sklearn.neural_network.MLPClassifier` for classification).
+- ``spaAnchor.regressor.randomforest_regressor``: Random Forest regression model (:class:`~sklearn.ensemble.RandomForestRegressor` / :class:`~sklearn.ensemble.RandomForestClassifier` for classification).
+- ``spaAnchor.regressor.svm_regressor``: Support Vector Machine regression model (:class:`~sklearn.svm.SVR` / :class:`~sklearn.svm.SVC` for classification).
+- ``spaAnchor.regressor.lightgbm_regressor``: LightGBM regression model (:class:`~lightgbm.LGBMRegressor` / :class:`~lightgbm.LGBMClassifier` for classification).
+
+For one-hot data type transformation, we also provide the classifier version 
+of those models in ``spaAnchor.regressor``, such as ``spaAnchor.regressor.ridge_classifier``. 
+For classifier, spaAnchor output the predicted probability for each class matching to the input one-hot matrix.
+Users can directly use those regression/classification models by inputting the corresponding 
+key to the ``regressor_key`` parameter.
+
+Differ from spaAnchor's default regression model, user can set the parameters for those regression models
+by inputting paras when initial them in the ``regressor_key`` parameter (for detailed parameter list, 
+please refer to the corresponding model's documentation). 
+
+
+.. code:: python
+        
+    import spaAnchor as sa
+
+    feature_key = ["X", "mod1", "mod2", "ont_hot_mod1", ...]  # The feature modality user want to translate.
+    regressor_key = {
+        "X": None, # Use default regression (Ridge) for feature modality "X"
+        # Use MLP regression for feature modality "mod1" with specified parameters
+        # the parameters here are just for demonstration, user can set them according to their data's pattern.
+        "mod1": sa.regressor.mlp_regressor(hidden_layer_sizes=(100, 50), max_iter=200), 
+        "mod2": sa.regressor.xgboost_regressor(n_estimators=100, max_depth=5, learning_rate=0.1),
+        "ont_hot_mod1": sa.regressor.randomforest_classifier(n_estimators=100, max_depth=5),
+        ...
+    }
+    model = sa.HANN(feature_key=feature_key, regressor_key=regressor_key)   # Any our prebuilt model or customized model.
+    transfer_result = model(adata_list)
+
+
+Also if users have their own regression model, they can also directly pass the 
+regression function to this parameter.
+
+For user defined regression function, the function should have those preserved parameters:
+
+.. code:: python
+
+    import spaAnchor as sa
+        
+    def user_defined_regression(
+        self,
+        source: np.ndarray, 
+        target: np.ndarray, 
+        predict: Optional[np.ndarray] = None,
+        top_pcs: int = 50, 
+        n_jobs: int = -1,
+        **kwargs
+    ) -> np.ndarray:
+        
+        ...
+
+
+    feature_key = ["mod", ...]
+    regressor_key = {
+        "mod": user_defined_regression, # Should assign the callable function object, not the result of the function.
+        ...
+    }
+    model = sa.HANN(feature_key=feature_key, regressor_key=regressor_key)   # Any our prebuilt model or customized model.
+    transfer_result = model(adata_list)
 

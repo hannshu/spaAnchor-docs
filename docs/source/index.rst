@@ -24,5 +24,5 @@ Welcome to spaAnchor's documentation
 .. toctree::
    :caption: ADVANCED USAGE
 
-   customized
+   customize
    HANN_class

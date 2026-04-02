@@ -142,8 +142,7 @@ class HANN:
             **kwargs (optional): Additional arguments.
 
         Returns:
-            List[sc.AnnData]: AnnData objects with cell-level latent features 
-                stored at :obj:`adata.obsm["cell_latent"]`.
+            List[sc.AnnData]: AnnData objects with cell-level latent features stored at :obj:`adata.obsm["cell_latent"]`.
         """
         pass
 
@@ -161,8 +160,7 @@ class HANN:
             **kwargs (optional): Additional arguments.
 
         Returns:
-            List[sc.AnnData]: AnnData objects updated with :obj:`cell_latent` 
-                and :obj:`niche_latent`.
+            List[sc.AnnData]: AnnData objects updated with :obj:`cell_latent` and :obj:`niche_latent`.
         """
         pass
 
@@ -210,14 +208,14 @@ class HANN:
 
     def translate(
         self,
-        source_emb: sc.AnnData,
+        source_emb: np.ndarray,
         source_feat: np.ndarray,
-        target_emb: sc.AnnData,
+        target_emb: np.ndarray,
         target_feat: np.ndarray,
         hnn_pairs: np.ndarray,
         index: List[str],
         columns: List[str],
-        regression_func: Callable = None,
+        regression_func: Callable = "self.feature_regression",
         **kwargs
     ) -> pd.DataFrame:
         r"""Translates features from source slice to target slice.
@@ -229,15 +227,16 @@ class HANN:
         2. Global regression to predict features for all cells in the target slice.  
 
         Args:
-            source_emb (sc.AnnData): Latent features of the source slice.
+            source_emb (numpy.ndarray): Latent features of the source slice.
             source_feat (numpy.ndarray): Features of the source slice to be transferred.
-            target_emb (sc.AnnData): Latent features of the target slice.
+            target_emb (numpy.ndarray): Latent features of the target slice.
             target_feat (numpy.ndarray): Intrinsic features of the target slice for regression.
             hnn_pairs (numpy.ndarray): HNN pairs between source and target slices.
             index (List[str]): Index for the output DataFrame.
             columns (List[str]): Feature names for the output DataFrame.
             regression_func (Callable, optional): Function to perform global regression. 
-                (default: :meth:`self.feature_regression`)
+                Please note that this part need a :obj:`~typing.Callable` function object, not a function result.
+                (default: :meth:`self.feature_regression <spaAnchor.HANN.feature_regression>`)
             **kwargs (optional): Additional arguments.
 
         Returns:
@@ -297,8 +296,6 @@ class HANN:
             **kwargs (optional): Additional arguments.
 
         Returns:
-            Dict[int, Dict[str, pandas.DataFrame]]: A dictionary containing 
-                translated features. Access via :obj:`result[target_slice_index][feature_name]`.
-                `feature_name` should be like `{what feature?}_from_{which slice?}`.
+            Dict[int, Dict[str, pandas.DataFrame]]: A dictionary containing translated features. Access via :obj:`result[target_slice_index][feature_name]`.`feature_name` should be like `{what feature?}_from_{which slice?}`.
         """
         pass

@@ -30,9 +30,13 @@ extensions = [
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
     'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
-    # 'numpy': ('http://docs.scipy.org/doc/numpy', None),
-    # 'pandas': ('https://pandas.pydata.org/docs', None),
-    # 'torch': ('https://pytorch.org/docs/main', None),
+    'numpy': ('https://docs.scipy.org/doc/numpy', None),
+    'pandas': ('https://pandas.pydata.org/docs', None),
+    'torch': ('https://pytorch.org/docs/main', None),
+    'sklearn': ('https://scikit-learn.org/stable/', None),
+    'scanpy': ('https://scanpy.readthedocs.io/en/stable/', None),
+    'xgboost': ('https://xgboost.readthedocs.io/en/stable/', None),
+    'lightgbm': ('https://lightgbm.readthedocs.io/en/latest/', None)
 }
 intersphinx_disabled_domains = ['std']
 
@@ -50,9 +54,9 @@ napoleon_preprocess_types = True
 autodoc_member_order = 'bysource'
 
 html_theme_options = {
-    'collapse_navigation': False,  # Important: This keeps the tree expanded
-    'navigation_depth': 4,         # Allows for deep nesting
-    'titles_only': False           # Shows sub-headers if you want them
+    'collapse_navigation': False,
+    'navigation_depth': 4,
+    'titles_only': False
 }
 
 # -- Options for HTML output

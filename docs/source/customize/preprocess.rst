@@ -1,4 +1,4 @@
-Customized :meth:`~spaAnchor.HANN.preprocess`
+Customize :meth:`~spaAnchor.HANN.preprocess`
 ---------------------------------------------
 
 Preprocessing is a crucial step in the spaAnchor workflow, 

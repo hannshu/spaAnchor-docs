@@ -1,4 +1,4 @@
-Customized :meth:`~spaAnchor.HANN.projection`
+Customize :meth:`~spaAnchor.HANN.projection`
 ---------------------------------------------
 
 The projection module is responsible for generating the cell-level 

@@ -1,5 +1,5 @@
-Customized spaAnchor
---------------------
+Customize spaAnchor
+-------------------
 
 In this section, we will explain how to customize the foundational
 ``spaAnchor.HANN`` model to fit user's specific needs. 
@@ -20,8 +20,8 @@ cross-slice shared features and use the cell-level latent features and spatial g
 to generate the niche-level latent features.   
 
 3. :meth:`~spaAnchor.HANN.mapping` for HNN pairs identification using the previously generated
-cell-level and niche-level latent features. (We highly recommend users to keep the default HNN 
-pair identification method, as it is a key step in the search-and-regress paradigm)   
+cell-level and niche-level latent features (We highly recommend users to keep the default HNN 
+pair identification method, as it is a key step in the search-and-regress paradigm).
 
 4. :meth:`~spaAnchor.HANN.translate` for feature translation from source slice to target slice.  
 
@@ -69,14 +69,14 @@ Below are the specific topics:
 
     customize/preprocess
     customize/projection
-    customize/translation
+    customize/translate
 
 
 After building the model, user can run this customized model with the same workflow as the default model.
 
 Please note that if the function user customized have new parameters without setting a
 default value, user should specified this parameter when running this model. Such as for 
-this customized KNN graph construction with a customized parameter "user_defined_k", 
+this customized KNN graph construction with a customized parameter ``user_defined_``, 
 user should run this model with: 
 
 
